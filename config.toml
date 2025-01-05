@@ -1,0 +1,2 @@
+strategy = "polling"
+url = "https://aviationweather.gov/api/data/metar?format=geojson&ids=KIJD"

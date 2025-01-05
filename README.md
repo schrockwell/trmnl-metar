@@ -14,7 +14,7 @@ This is a private plugin, so it's not available in the plugin store. Follow the 
 - Polling URL: `https://aviationweather.gov/api/data/metar?format=geojson&ids=KABC`
   - Substitute `KABC` for the ICAO identifier
 - Refresh rate: Hourly
-- Markup: [Full view](templates/_view_full.liquid)
+- Markup: [Full view](views/full.liquid)
 
 ## Step 1: Create a New Private Plugin
 
@@ -38,7 +38,7 @@ Click 'Save'. Once it is saved, the 'Edit Markup' button is now available.
 
 ## Step 3: Add the HTML Markup
 
-Click the 'Edit Markup' button, and paste in the contents of the [full view template](templates/_view_full.liquid).
+Click the 'Edit Markup' button, and paste in the contents of the [full view template](views/full.liquid).
 
 ## Step 4: Save and Activate the Plugin
 

@@ -1,4 +1,4 @@
 
 source 'https://rubygems.org'
 
-gem 'liquid'
+gem "trmnl_preview", "~> 0.1.2"
