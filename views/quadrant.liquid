@@ -43,9 +43,14 @@
           {% endif %}
 
           <div class="value value--xxsmall">
-            {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }}{% if metar.wgst %}-{{ metar.wgst }}{% endif %}
-            <span class="">kt</span> {% endif %}
+            {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }} kt{% endif %}
           </div>
+
+          {% if metar.wgst %}
+            <div class="value value--xxsmall">
+             – {{ metar.wgst }} kt
+            </div>
+          {% endif %}
 
           <div class="description">
             {% if metar.wdir == 'VRB' %} variable {% elsif metar.wspd >
@@ -110,7 +115,7 @@
               </div>
             </div>
           {% else %}
-            <div class="item">
+            <div class="item col--span-3">
               <div class="meta"></div>
               <div class="content">
                 <div class="label label--small">Clear sky</div>
