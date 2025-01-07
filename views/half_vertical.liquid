@@ -1,0 +1,135 @@
+<style>
+  .compass {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pointer {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid black;
+    top: 0;
+    left: 50%;
+    transform-origin: center 75px;
+  }
+
+  .column--center { align-items: center; justify-content: center }
+  .flex--grow { flex-grow: 1 }
+</style>
+
+<div class="layout layout--col" style="justify-content: space-around">
+  {% assign metar = features.first.properties %}
+  
+  <div class="compass gap--xsmall">
+    {% if metar.wdir != 'VRB' and metar.wspd > 0 %}
+    <div
+      class="pointer"
+      style="transform: translateX(-50%) rotate({{ metar.wdir }}deg)"
+    ></div>
+    {% endif %}
+
+    <div class="value value--small">
+      {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }}{% if metar.wgst %}-{{ metar.wgst }}{% endif %}
+      <span class="">kt</span> {% endif %}
+    </div>
+
+    <div class="value value--xsmall">
+      {% if metar.wdir == 'VRB' %} variable {% elsif metar.wspd >
+      0 %} {{ metar.wdir }}° {% endif %}
+    </div>
+  </div>
+  <div class="grid grid--cols-2">
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <div class="value value--small">{{ metar.fltcat }}</div>
+        <div class="label">Category</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <div class="value value--xsmall">{{ metar.temp | times: 1.8 | plus: 32 | round }} °F</div>
+        <div class="label">Temperature</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <div class="value value--xsmall">{{ metar.dewp | times: 1.8 | plus: 32 | round }} °F</div>
+        <div class="label">Dewpoint</div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <div class="value value--xsmall">{{ metar.altim | times: 0.02953 | round: 2 }} inHg</div>
+        <div class="label">Altimeter</div>
+      </div>
+    </div>
+    
+    <div class="item">
+      <div class="meta"></div>
+      <div class="content">
+        <div class="value value--xsmall">{{ metar.visib }} sm</div>
+        <div class="label">Visibility</div>
+      </div>
+    </div>
+
+    {% if metar.cldBas1 %}
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          {% for i in (1..5) %}
+            {% capture base %}cldBas{{ i }}{% endcapture %}
+            {% capture coverage %}cldCvg{{ i }}{% endcapture %}
+            {% if metar[coverage] %}
+              <div class="value value--xsmall">{{ metar[coverage] }} {{ metar[base] | times: 100 | number_with_delimiter }} ft</div>
+            {% endif %}
+          {% endfor %}
+          <div class="label">Clouds</div>
+        </div>
+      </div>
+    {% else %}
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="label">Clear sky</div>
+        </div>
+      </div>
+    {% endif %}
+
+    {% if metar.wx %}
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="value value--xsmall">{{ metar.wx }}</div>
+          <div class="label">Conditions</div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<div class="title_bar">
+  <img
+    class="image"
+    src="https://usetrmnl.com/images/plugins/trmnl--render.svg"
+  />
+  <span class="title">{{ metar.id }}</span>
+  <span class="instance">{{ metar.obsTime | date: "%H:%MZ" }}</span>
+</div>

@@ -1,4 +1,4 @@
 
 source 'https://rubygems.org'
 
-gem "trmnl_preview", "~> 0.3.0"
+gem "trmnl_preview", "~> 0.3.1"
