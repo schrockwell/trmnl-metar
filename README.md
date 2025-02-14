@@ -8,52 +8,16 @@ Data is provided by NOAA's [Aviation Weather Center](https://aviationweather.gov
 
 # Installation
 
-This is a private plugin, so it's not available in the plugin store. Follow the detailed directions below to add it to your device.
+This is a private plugin, so it's not available in the plugin store. Follow the directions below to add it to your device.
 
-- Strategy: Polling
-- Polling URL: `https://aviationweather.gov/api/data/metar?format=geojson&ids=KABC`
-  - Substitute `KABC` for the ICAO identifier
-- Refresh rate: Hourly
-- Markup
-  - [Full](views/full.liquid)
-  - [Half horizontal](views/half_horizontal.liquid)
-  - [Half vertical](views/half_vertical.liquid)
-  - [Quadrant](views/quadrant.liquid)
+## Step 1: Download a ZIP archive
 
-## Step 1: Create a New Private Plugin
+Get [the latest ZIP file](https://github.com/schrockwell/trmnl-metar/archive/refs/heads/main.zip) from GitHub.
 
-Log in to your TRMNL dashboard.
-On the left-hand menu, click on the 'Go to Plugins' button.
-Find the 'Private Plugin' Plugin to create a Private Plugin.
-Click 'Add new' to create a new Private Plugin.
+## Step 2: Import the plugin
 
-## Step 2: Set up the Polling Strategy
+On the [Private Plugin](https://usetrmnl.com/plugin_settings?keyname=private_plugin) management page, click "Import new", and select the ZIP file. A new plugin will be created and added to your playlist.
 
-Name your plugin (e.g., "KABC METAR") then scroll down to the 'Strategy' section.
-Choose the 'Polling' strategy from the 'Strategy' dropdown menu.
-In the 'Polling URL' field, enter the following URL, substituting `KABC` for the ICAO identifier of
-station you wish to see:
+## Step 3: Customize the plugin
 
-```
-https://aviationweather.gov/api/data/metar?format=geojson&ids=KABC
-```
-
-Click 'Save'. Once it is saved, the 'Edit Markup' button is now available.
-
-## Step 3: Add the HTML Markup
-
-Click the 'Edit Markup' button, and paste in the contents of the four templates in [/views](/views).
-
-## Step 4: Save and Activate the Plugin
-
-Once you have entered the markup, click Save to store the plugin.
-
-Change the refresh rate to 'Hourly'.
-
-Navigate to the Playlists tab in your TRMNL dashboard.
-
-Drag and drop your new Deep Space Network plugin to the top of your playlist if not automatically added.
-
-## Step 5: View the Dashboard on Your Device
-
-Once refreshed, your TRMNL device will display the Deep Space Network status.
+Fill out the "Station ICAO ID" field with the airport identifier (in the U.S., this means the "K" is included).
