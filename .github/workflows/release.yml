@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - "v*" # Runs when a tag starting with "v" is pushed
+  workflow_dispatch: # Allows manual triggering of the workflow
 
 jobs:
   build-and-release:
