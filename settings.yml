@@ -1,9 +1,0 @@
----
-name: METAR
-refresh_interval: 60
-strategy: polling
-polling_url: https://aviationweather.gov/api/data/metar?format=geojson&ids={{ station }}
-custom_fields:
-  - keyname: station
-    field_type: string
-    name: Station ICAO ID

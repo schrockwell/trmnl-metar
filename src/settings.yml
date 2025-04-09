@@ -1,0 +1,15 @@
+---
+strategy: polling
+no_screen_padding: ''
+dark_mode: 'no'
+static_data: ''
+polling_verb: get
+polling_url: https://aviationweather.gov/api/data/metar?format=geojson&ids={{ station }}
+polling_headers: ''
+id: 21542
+custom_fields:
+- keyname: station
+  field_type: string
+  name: Station ICAO ID
+name: METAR
+refresh_interval: 60
