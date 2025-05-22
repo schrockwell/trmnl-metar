@@ -1,26 +1,14 @@
 <style>
   .compass {
-    position: relative;
     width: 80px;
     height: 80px;
-    background-color: white;
     border: 3px solid black;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
 
   .pointer {
-    position: absolute;
-    width: 0;
-    height: 0;
     border-left: 5px solid transparent;
     border-right: 5px solid transparent;
     border-bottom: 10px solid black;
-    top: 0;
-    left: 50%;
     transform-origin: center 40px;
   }
 
@@ -34,29 +22,7 @@
   <div class="columns columns--center flex--grow">
     <div class="grid grid--cols-4">
       <div class="col--span-1" style="align-items: center">
-        <div class="compass">
-          {% if metar.wdir != 'VRB' and metar.wspd > 0 %}
-          <div
-            class="pointer"
-            style="transform: translateX(-50%) rotate({{ metar.wdir }}deg)"
-          ></div>
-          {% endif %}
-
-          <div class="value value--xxsmall">
-            {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }} kt{% endif %}
-          </div>
-
-          {% if metar.wgst %}
-            <div class="value value--xxsmall">
-             – {{ metar.wgst }} kt
-            </div>
-          {% endif %}
-
-          <div class="description">
-            {% if metar.wdir == 'VRB' %} variable {% elsif metar.wspd >
-            0 %} {{ metar.wdir }}° {% endif %}
-          </div>
-        </div>
+        {% render "compass", metar: metar, class: "gap--xsmall", wspd: "value--xxsmall", wdir: "value--xxsmall" %}
       </div>
       <div class="col--span-3">
         <div class="grid grid--cols-3">
@@ -71,7 +37,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{{ metar.temp | times: 1.8 | plus: 32 | round }} °F</div>
+              <div class="value value--xxsmall">{% render "temp", c: metar.temp %}</div>
               <div class="label label--small">Temp.</div>
             </div>
           </div>
@@ -79,7 +45,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{{ metar.dewp | times: 1.8 | plus: 32 | round }} °F</div>
+              <div class="value value--xxsmall">{% render "temp", c: metar.dewp %}</div>
               <div class="label label--small">Dewpoint</div>
             </div>
           </div>
@@ -87,7 +53,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{{ metar.altim | times: 0.02953 | round: 2 }}</div>
+              <div class="value value--xxsmall">{% render "altimeter", mb: metar.altim %}</div>
               <div class="label label--small">Altimeter</div>
             </div>
           </div>
@@ -95,7 +61,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{{ metar.visib }} sm</div>
+              <div class="value value--xxsmall">{% render "visibility", sm: metar.visib %}</div>
               <div class="label label--small">Visibility</div>
             </div>
           </div>
@@ -104,13 +70,7 @@
             <div class="item col--span-3">
               <div class="meta"></div>
               <div class="content">
-                {% for i in (1..5) %}
-                  {% capture base %}cldBas{{ i }}{% endcapture %}
-                  {% capture coverage %}cldCvg{{ i }}{% endcapture %}
-                  {% if metar[coverage] %}
-                    <div class="value value--xxsmall">{{ metar[coverage] }} {{ metar[base] | times: 100 | number_with_delimiter }} ft</div>
-                  {% endif %}
-                {% endfor %}
+                {% render "clouds", metar: metar, class: "value--xxsmall" %}
                 <div class="label label--small">Clouds</div>
               </div>
             </div>

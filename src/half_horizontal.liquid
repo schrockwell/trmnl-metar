@@ -1,31 +1,16 @@
 <style>
   .compass {
-    position: relative;
     width: 150px;
     height: 150px;
-    background-color: white;
-    border: 5px solid black;
-    border-radius: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    border: 4px solid black;
   }
 
   .pointer {
-    position: absolute;
-    width: 0;
-    height: 0;
     border-left: 10px solid transparent;
     border-right: 10px solid transparent;
     border-bottom: 15px solid black;
-    top: 0;
-    left: 50%;
     transform-origin: center 75px;
   }
-
-  .column--center { align-items: center; justify-content: center }
-  .flex--grow { flex-grow: 1 }
 </style>
 
 <div class="layout layout--col">
@@ -34,24 +19,7 @@
   <div class="columns columns--center flex--grow">
     <div class="grid grid--cols-4">
       <div class="col--span-1" style="display: flex; justify-content: center">
-        <div class="compass gap--xsmall">
-          {% if metar.wdir != 'VRB' and metar.wspd > 0 %}
-          <div
-            class="pointer"
-            style="transform: translateX(-50%) rotate({{ metar.wdir }}deg)"
-          ></div>
-          {% endif %}
-
-          <div class="value value--small">
-            {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }}{% if metar.wgst %}-{{ metar.wgst }}{% endif %}
-            <span class="">kt</span> {% endif %}
-          </div>
-
-          <div class="value value--xsmall">
-            {% if metar.wdir == 'VRB' %} variable {% elsif metar.wspd >
-            0 %} {{ metar.wdir }}° {% endif %}
-          </div>
-        </div>
+        {% render "compass", metar: metar, class: "gap--xsmall", wspd: "value--small", wdir: "value--xsmall" %}
       </div>
       <div class="col--span-3">
         <div class="grid grid--cols-4">
@@ -66,7 +34,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xsmall">{{ metar.temp | times: 1.8 | plus: 32 | round }} °F</div>
+              <div class="value value--xsmall">{% render "temp", c: metar.temp %}</div>
               <div class="label">Temperature</div>
             </div>
           </div>
@@ -74,7 +42,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xsmall">{{ metar.dewp | times: 1.8 | plus: 32 | round }} °F</div>
+              <div class="value value--xsmall">{% render "temp", c: metar.dewp %}</div>
               <div class="label">Dewpoint</div>
             </div>
           </div>
@@ -82,7 +50,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xsmall">{{ metar.altim | times: 0.02953 | round: 2 }} inHg</div>
+              <div class="value value--xsmall">{% render "altimeter", mb: metar.altim %} inHg</div>
               <div class="label">Altimeter</div>
             </div>
           </div>
@@ -90,7 +58,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xsmall">{{ metar.visib }} sm</div>
+              <div class="value value--xsmall">{% render "visibility", sm: metar.visib %}</div>
               <div class="label">Visibility</div>
             </div>
           </div>
@@ -99,13 +67,7 @@
             <div class="item col--span-2">
               <div class="meta"></div>
               <div class="content">
-                {% for i in (1..5) %}
-                  {% capture base %}cldBas{{ i }}{% endcapture %}
-                  {% capture coverage %}cldCvg{{ i }}{% endcapture %}
-                  {% if metar[coverage] %}
-                    <div class="value value--xsmall">{{ metar[coverage] }} {{ metar[base] | times: 100 | number_with_delimiter }} ft</div>
-                  {% endif %}
-                {% endfor %}
+                {% render "clouds", metar: metar, class: "value--xsmall" %}
                 <div class="label">Clouds</div>
               </div>
             </div>

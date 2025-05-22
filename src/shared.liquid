@@ -1,0 +1,71 @@
+<style>
+  .compass {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: white;
+    border: 5px solid black;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .pointer {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid black;
+    top: 0;
+    left: 50%;
+    transform-origin: center 150px;
+  }
+
+  .column--center { align-items: center; justify-content: center }
+  .flex--grow { flex-grow: 1 }
+</style>
+
+{% template compass %}
+<div class="compass {{ class }}">
+  {% if metar.wdir != 'VRB' and metar.wspd > 0 %}
+  <div
+    class="pointer"
+    style="transform: translateX(-50%) rotate({{ metar.wdir }}deg)"
+  ></div>
+  {% endif %}
+
+  <div class="value {{ wspd }}">
+    {% if metar.wspd == 0 %} calm {% else %} {{ metar.wspd }}{% if metar.wgst %}-{{ metar.wgst }}{% endif %}
+    <span class="">kt</span> {% endif %}
+  </div>
+
+  <div class="value {{ wdir }}">
+    {% if metar.wdir == 'VRB' %} variable {% elsif metar.wspd > 0 %} {{ metar.wdir }}° {% endif %}
+  </div>
+</div>
+{% endtemplate %}
+
+{% template temp %}
+{{ c | times: 1.8 | plus: 32 | round }} °F
+{% endtemplate %}
+
+{% template altimeter %}
+{{ mb | times: 0.02953 | round: 2 }}
+{% endtemplate %}
+
+{% template visibility %}
+{{ sm }} sm
+{% endtemplate %}
+
+{% template clouds %}
+{% for i in (1..5) %}
+  {% capture base %}cldBas{{ i }}{% endcapture %}
+  {% capture coverage %}cldCvg{{ i }}{% endcapture %}
+  {% if metar[coverage] %}
+    <div class="value {{ class }}">{{ metar[coverage] }} {{ metar[base] | times: 100 | number_with_delimiter }} ft</div>
+  {% endif %}
+{% endfor %}
+{% endtemplate %}
