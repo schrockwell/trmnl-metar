@@ -61,11 +61,16 @@
 {% endtemplate %}
 
 {% template clouds %}
-{% for i in (1..5) %}
-  {% capture base %}cldBas{{ i }}{% endcapture %}
-  {% capture coverage %}cldCvg{{ i }}{% endcapture %}
-  {% if metar[coverage] %}
-    <div class="value {{ class }}">{{ metar[coverage] }} {{ metar[base] | times: 100 | number_with_delimiter }} ft</div>
-  {% endif %}
-{% endfor %}
+  {% for cloud in metar.clouds %}
+    {% if cloud.cover %}
+      <div class="value {{ class }}">
+        {{ cloud.cover }} 
+        {% if cloud.base != nil %}
+          {{ cloud.base | times: 100 | number_with_delimiter }} ft
+        {% else %}
+          VV
+        {% endif %}
+      </div>
+    {% endif %}
+  {% endfor %}
 {% endtemplate %}
