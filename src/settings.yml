@@ -6,6 +6,7 @@ static_data: ''
 polling_verb: get
 polling_url: https://aviationweather.gov/api/data/metar?format=geojson&ids={{ station }}
 polling_headers: ''
+polling_body: 
 id: 21542
 custom_fields:
 - keyname: station
