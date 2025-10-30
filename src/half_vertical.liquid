@@ -59,7 +59,7 @@
       </div>
     </div>
 
-    {% if metar.cldBas1 %}
+    {% if metar.clouds and metar.clouds.size > 0 %}
       <div class="item">
         <div class="meta"></div>
         <div class="content">
