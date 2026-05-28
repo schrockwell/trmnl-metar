@@ -49,15 +49,31 @@
 {% endtemplate %}
 
 {% template temp %}
+{% if units == 'us' %}
 {{ c | times: 1.8 | plus: 32 | round }} °F
+{% else %}
+{{ c | round }} °C
+{% endif %}
 {% endtemplate %}
 
 {% template altimeter %}
+{% if units == 'us' %}
 {{ mb | times: 0.02953 | round: 2 }}
+{% else %}
+{{ mb | round }}
+{% endif %}
+{% endtemplate %}
+
+{% template altimeter_unit %}
+{% if units == 'us' %}inHg{% else %}hPa{% endif %}
 {% endtemplate %}
 
 {% template visibility %}
+{% if units == 'us' %}
 {{ sm }} sm
+{% else %}
+{{ sm | times: 0.868976 | round: 1 }} nm
+{% endif %}
 {% endtemplate %}
 
 {% template clouds %}
