@@ -19,6 +19,98 @@
         <div class="item">
           <div class="meta"></div>
           <div class="content">
+            <div class="value value--small">{% render "temp", c: metar.temp, units: units %}</div>
+            <div class="label">Temperature</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="meta"></div>
+          <div class="content">
+            <div class="value value--small">{% render "temp", c: metar.dewp, units: units %}</div>
+            <div class="label">Dewpoint</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="meta"></div>
+          <div class="content">
+            <div class="value value--small">{% render "altimeter", mb: metar.altim, units: units %} {% render "altimeter_unit", units: units %}</div>
+            <div class="label">Altimeter</div>
+          </div>
+        </div>
+        
+        <div class="item">
+          <div class="meta"></div>
+          <div class="content">
+            <div class="value value--small">{% render "visibility", sm: metar.visib, units: units %}</div>
+            <div class="label">Visibility</div>
+          </div>
+        </div>
+
+        {% if metar.clouds and metar.clouds.size > 0 %}
+          <div class="item">
+            <div class="meta"></div>
+            <div class="content">
+              {% render "clouds", metar: metar, class: "value--xsmall" %}
+              <div class="label">Clouds</div>
+            </div>
+          </div>
+        {% else %}
+          <div class="item">
+            <div class="meta"></div>
+            <div class="content">
+              <div class="label">Clear sky</div>
+            </div>
+          </div>
+        {% endif %}
+
+        {% if metar.wx %}
+          <div class="item">
+            <div class="meta"></div>
+            <div class="content">
+              <div class="value value--xsmall">{{ metar.wx }}</div>
+              <div class="label">Conditions</div>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="label clamp--3" style="word-break: normal; width: 100%">
+    {{ metar.rawOb }}
+  </div>
+</div>
+
+<div class="title_bar">
+  <img
+    class="image"
+    src="https://usetrmnl.com/images/plugins/trmnl--render.svg"
+  />
+  <span class="title">{{ metar.site }} ({{ metar.id }})</span>
+  <span class="instance">{{ metar.obsTime | date: "%B %-d, %Y – %H:%MZ" }}</span>
+</div>
+<div class="layout layout--col">
+  {% assign metar = features.first.properties %}
+  
+  <div class="columns columns--center flex--grow">
+    <div class="column column--center">
+      {% render "compass", metar: metar, class: "gap", wspd: "value--large", wdir: "" %}
+    </div>
+    <div class="column">
+      
+      <div class="grid grid--cols-2 gap--large">
+        <div class="item col--span-2">
+          <div class="meta"></div>
+          <div class="content">
+            <div class="value">{{ metar.fltcat }}</div>
+            <div class="label">Category</div>
+          </div>
+        </div>
+
+        <div class="item">
+          <div class="meta"></div>
+          <div class="content">
             <div class="value value--small">{% render "temp", c: metar.temp %}</div>
             <div class="label">Temperature</div>
           </div>
