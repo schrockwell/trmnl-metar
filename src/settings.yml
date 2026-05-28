@@ -12,5 +12,13 @@ custom_fields:
 - keyname: station
   field_type: string
   name: Station ICAO ID
+- keyname: units
+  field_type: select
+  name: Units
+  options:
+    - 'icao'
+    - 'us'
+  default: 'icao'
+  description: "ICAO: °C, hPa, nautical miles. US: °F, inHg, statute miles."
 name: METAR
 refresh_interval: 60
