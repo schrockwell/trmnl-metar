@@ -17,8 +17,6 @@
 </style>
 
 <div class="layout layout--col">
-  {% assign metar = features.first.properties %}
-  
   <div class="columns columns--center flex--grow">
     <div class="grid grid--cols-4">
       <div class="col--span-1" style="align-items: center">
@@ -37,7 +35,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{% render "temp", c: metar.temp %}</div>
+              <div class="value value--xxsmall">{% render "temp", c: metar.temp, units: units %}</div>
               <div class="label label--small">Temp.</div>
             </div>
           </div>
@@ -45,7 +43,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{% render "temp", c: metar.dewp %}</div>
+              <div class="value value--xxsmall">{% render "temp", c: metar.dewp, units: units %}</div>
               <div class="label label--small">Dewpoint</div>
             </div>
           </div>
@@ -53,7 +51,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{% render "altimeter", mb: metar.altim %}</div>
+              <div class="value value--xxsmall">{% render "altimeter", mb: metar.altim, units: units %}</div>
               <div class="label label--small">Altimeter</div>
             </div>
           </div>
@@ -61,7 +59,7 @@
           <div class="item">
             <div class="meta"></div>
             <div class="content">
-              <div class="value value--xxsmall">{% render "visibility", sm: metar.visib %}</div>
+              <div class="value value--xxsmall">{% render "visibility", sm: metar.visib, units: units %}</div>
               <div class="label label--small">Visibility</div>
             </div>
           </div>

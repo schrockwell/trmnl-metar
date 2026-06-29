@@ -5,3 +5,4 @@ watch:
 
 custom_fields:
   station: KLAX # "{{ env.ICAO }}"
+  units: us

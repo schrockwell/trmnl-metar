@@ -14,8 +14,6 @@
 </style>
 
 <div class="layout layout--col" style="justify-content: space-around">
-  {% assign metar = features.first.properties %}
-  
   {% render "compass", metar: metar, class: "gap--xsmall", wspd: "value--small", wdir: "value--xsmall" %}
 
   <div class="grid grid--cols-2">
@@ -30,7 +28,7 @@
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <div class="value value--xsmall">{% render "temp", c: metar.temp %}</div>
+        <div class="value value--xsmall">{% render "temp", c: metar.temp, units: units %}</div>
         <div class="label">Temperature</div>
       </div>
     </div>
@@ -38,7 +36,7 @@
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <div class="value value--xsmall">{% render "temp", c: metar.dewp %}</div>
+        <div class="value value--xsmall">{% render "temp", c: metar.dewp, units: units %}</div>
         <div class="label">Dewpoint</div>
       </div>
     </div>
@@ -46,7 +44,7 @@
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <div class="value value--xsmall">{% render "altimeter", mb: metar.altim %} inHg</div>
+        <div class="value value--xsmall">{% render "altimeter", mb: metar.altim, units: units %} {% render "altimeter_unit", units: units %}</div>
         <div class="label">Altimeter</div>
       </div>
     </div>
@@ -54,7 +52,7 @@
     <div class="item">
       <div class="meta"></div>
       <div class="content">
-        <div class="value value--xsmall">{% render "visibility", sm: metar.visib %}</div>
+        <div class="value value--xsmall">{% render "visibility", sm: metar.visib, units: units %}</div>
         <div class="label">Visibility</div>
       </div>
     </div>
