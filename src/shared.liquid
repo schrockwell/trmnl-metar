@@ -1,3 +1,7 @@
+{% # convenient aliases %}
+{% assign units = trmnl.plugin_settings.custom_fields_values.units || default: 'us' %}
+{% assign metar = features.first.properties %}
+
 <style>
   .compass {
     position: relative;

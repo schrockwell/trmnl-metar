@@ -1,6 +1,4 @@
 <div class="layout layout--col">
-  {% assign metar = features.first.properties %}
-
   <div class="columns columns--center flex--grow">
     <div class="column column--center">
       {% render "compass", metar: metar, class: "gap", wspd: "value--large", wdir: "" %}

@@ -14,8 +14,6 @@
 </style>
 
 <div class="layout layout--col" style="justify-content: space-around">
-  {% assign metar = features.first.properties %}
-  
   {% render "compass", metar: metar, class: "gap--xsmall", wspd: "value--small", wdir: "value--xsmall" %}
 
   <div class="grid grid--cols-2">
